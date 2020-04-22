@@ -1,0 +1,5 @@
+WiFiNaNi	KEYWORD1
+
+dissable_connection_to_wifi	KEYWORD2
+make_connection_to_wifi	KEYWORD2
+http_request	KEYWORD2

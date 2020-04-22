@@ -1,0 +1,12 @@
+1: setStepSizeInSteps, followed by int: amount of steps
+2: setPositionInSteps, followed by int: amount of steps
+3: /
+4: /
+5: takeOneStepCLKWise
+6: takeOneStepCounterCLKWise
+7: getPositionInSteps, returns int: amount of steps compared to origin
+8: getStepSizeInSteps, returns int: amount of original steps that correspond to one big step
+9: reset
+0: calibrate
+
+stepsize = 5-> stpappen van 9graden -> 40 posities.

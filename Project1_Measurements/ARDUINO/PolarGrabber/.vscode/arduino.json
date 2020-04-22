@@ -1,0 +1,5 @@
+{
+    "board": "arduino:samd:mkrwifi1010",
+    "sketch": "PolarGrabber.ino",
+    "port": "COM6"
+}

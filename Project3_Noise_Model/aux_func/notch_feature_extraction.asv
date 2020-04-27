@@ -1,0 +1,51 @@
+function [outputArg1,outputArg2] = notch_feature_extraction(y,P, Fs, nfft)
+%NOTCH_FEATURE_EXTRACTION The augmented signal contains peaks and notches
+%which indicate the direction. Frequencies are estimated using linear
+%prediction
+%   INPUT:
+%       - y:            time-domain signal
+%       - P:            all-pole filter order
+%   OUTPUT:
+%       - Frequencies:  
+%       - Bandwidths:   
+%       - 
+
+    % LP coefficients: cartesian form
+    [a,g] = lpc(y,P);
+    
+    % Convert to poles:
+    [z, p, k] = tf2zp(1,a);
+    
+    angles = angle(p);      % pole angles
+    radii = sqrt(real(p).^2+imag(p).^2);    % pole radii
+    
+    frequencies = Fs*angles/(2*pi);   % resonance frequencies
+    % Only keep valid frequencies
+    indexes = find(frequencies>0 & frequencies<22050);
+    frequencies = notches(indexes);
+    [frequencies, new_indexes] = sort(frequencies);
+    indexes = indexes(new_indexes);
+    bandwidths = -log10(pole_radii(indexes))*(Fs/pi);   % resonance bandwidths
+    
+    % Get notch magnitudes
+psd = fft(y, nfft);
+psd = psd(1:(length(psd)-1)/2);
+psd = (1/(Fs*length(psd)))* abs(psd).^2; %psd
+psd = 10*log10(psd);
+
+df = Fs/(2*length(psd));
+f = 0:df:(Fs-df)/2;
+
+L = length(notchfrequencies);
+notch_magnitudes = ones(L,1);
+
+for i = 1:L
+    notch_magnitudes(i) = psd(find(min(abs(f-notch_frequencies(i)))== abs(f-notch_frequencies(i))));
+end
+
+    
+    
+    
+
+end
+

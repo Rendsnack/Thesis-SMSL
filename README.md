@@ -37,7 +37,7 @@ Locating simpler signals like broadband noise can be done fairly easily using th
 Highly dynamic signals like speech and music require somewhat more complex features like MFCCs or reversly computed MFCCs.
 The ability to localize a sound source with the studied methods does not seem to be influenced by room reverberations.
 
-**Keywords: Sound Localization, Smartphones, Spectral Cues, PSD, MFCCs, Machine Learning **
+**Keywords: Sound Localization, Smartphones, Spectral Cues, PSD, MFCCs, Machine Learning**
 
 ## The provided projects
 The repository is split up into 4 main projects which follow the structure of the thesis. A detailed description is found in each corresponding project.

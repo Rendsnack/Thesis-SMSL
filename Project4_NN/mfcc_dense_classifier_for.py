@@ -37,27 +37,6 @@ training_and_test_data = pd.concat([data6_10, data6_50, data6_100, data6_500, da
 #train only on music
 # training_and_test_data = pd.concat([data6_10, data6_50, data6_100, data6_500, data6_1000])
 
-#reading validation dataset from csv
-#music
-data6_validation_10 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data6_validation_10ms_R.csv')
-data6_validation_50 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data6_validation_50ms_R.csv')
-data6_validation_100 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data6_validation_100ms_R.csv')
-data6_validation_500 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data6_validation_500ms_R.csv')
-data6_validation_1000 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data6_validation_1000ms_R.csv')
-#speech
-data5_validation_10 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data5_validation_10ms_R.csv')
-data5_validation_50 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data5_validation_50ms_R.csv')
-data5_validation_100 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data5_validation_100ms_R.csv')
-data5_validation_500 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data5_validation_500ms_R.csv')
-data5_validation_1000 = pd.read_csv('D:/Users/MC/Documents/UNI/MASTER/thesis/MFCC_FEATURES2/reverse_Mel_scale/data5_validation_1000ms_R.csv')
-#join
-validation_data = pd.concat([data6_validation_10, data6_validation_50, data6_validation_100, data6_validation_500, data6_validation_1000, data5_validation_10, data5_validation_50, data5_validation_100, data5_validation_500, data5_validation_1000])
-#train only on music
-# validation_data = pd.concat([data6_validation_10, data6_validation_50, data6_validation_100, data6_validation_500, data6_validation_1000])
-
-frames = [training_and_test_data, validation_data]
-training_and_test_data = pd.concat(frames)
-
 #making labels
 encoder = LabelEncoder()
 labels_list = training_and_test_data.iloc[:, -1]
@@ -77,15 +56,6 @@ X = scaler.fit_transform(np.array(training_and_test_data.iloc[:, :-1], dtype = f
 #randomly spliting dataset into train and test dataset
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
 
-#prepare validation stuff
-#making labels
-encoder = LabelEncoder()
-labels_list = validation_data.iloc[:, -1]
-# labels_list = reduce_resolution(data)
-val_y = encoder.fit_transform(labels_list)
-validation_data = validation_data.drop(['filename'],axis=1)
-val_X = scaler.fit_transform(np.array(validation_data.iloc[:, :-1], dtype = float))
-
 
 def writeBestModelToFile():
     with open(f"./for/best_models.txt", 'w') as f:
@@ -104,7 +74,6 @@ num_epoch = 1000
 
 highest_test_acc = 0
 best_model = "none"
-
 
 for num_layers in layers:
     for num_units in hiddenUnits:
@@ -148,11 +117,13 @@ for num_layers in layers:
             # save the model to disk
             model.save(f"./for/{filename}") 
 
+            # if so, update best model
             if test_acc > highest_test_acc:
                 highest_test_acc = test_acc
                 best_model = filename
                 print(best_model)
 
+#at the end, print best model and corresponding test accuracy to screen
 print(f'best model {best_model} @ {highest_test_acc}%')
 writeBestModelToFile()
 #end of program

@@ -80,6 +80,7 @@ for num_layers in layers:
         for eearl in epochs:
             #debug and stuff
             filename = f"reverse_music_MFCC_Dense_Classifier_l-{num_layers}_u-{num_units}_e-{num_epoch}_{int(time.time())}.h5"
+            #callback to record traing and validation process, these records can be accessed via a browser
             tboard_log_dir = os.path.join("logs",f"{os.path.basename(__file__)}_{filename}")
             tensorboard = TensorBoard(log_dir = tboard_log_dir)
 
@@ -97,6 +98,7 @@ for num_layers in layers:
                         loss='sparse_categorical_crossentropy',
                         metrics=['accuracy'])
 
+            # calback to stop training once val loss isn't decreasing anymore
             es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=eearl)
                         
             history = model.fit(X_train,

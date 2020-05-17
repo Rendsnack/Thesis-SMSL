@@ -1,6 +1,8 @@
 # Project 1: Polar Pattern Measurement
 This project consists of four key programs.
-The first program **add name** ...
+
+The first program, **SERVER**, runs a Transmission Control Protocol (TCP) server, written in C which controls the flow of the measurement.
+When you run the program
 
 The second program **add name** ...
 

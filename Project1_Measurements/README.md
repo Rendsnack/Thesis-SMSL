@@ -41,10 +41,14 @@ The wiring of the stepper motor, controller and arduino are shown here.
 
 ![](images/wiring.png)
 
-To provide the arduino with power it is connected to a laptop via a USB cable. Since the arduino can receive commands both via WiFi and via this USB cable connecting it to a laptop allows the user to rotate the smartphone mannualy before a measurement procedure is started.
-When first powering the arduino it will continously try to connect to the hotspot defined by the 'ssid' varaible in the PolarGrabber.ino.
+To provide the arduino with power it is connected to a laptop via a USB cable. Since the arduino can receive commands both via WiFi and via this USB cable connecting it to a laptop allows the user to rotate the smartphone manualy before a measurement procedure is started.
+When first powering the arduino it will continuously try to connect to the hotspot defined by the 'ssid' variable in the PolarGrabber.ino.
 Once a connection is established the arduino tries to connect to the server as defined by the 'server' variable. 
 Afterwards the arduino waits until it receives a command, be it via WiFi or via USB.
 The text file 'commands.txt' contains all integers that can be interpreted by the arduino. Typing '5' and '6', which correspond to 'takeOneStepCLKWise' and 'takeOneStepCounterCLKWise' respectively, into the serial monitor rotates the stepper motor. 
-Once the smartphone is oriented correctly, meaning the bottom microphone is pointing to the speaker, '0' can be send to the arduino to calibarte the current orientation as the origin. 
+Once the smartphone is oriented correctly, meaning the bottom microphone is pointing to the speaker, '0' can be sent to the arduino to calibrate the current orientation as the origin. 
 After the origin is set the measurement procedure can be started by pressing the *Run Automatic* button of the server.
+
+*A note on the stepper motor controller board.* 
+The polarity of the wiring does not matter, as long as each pair (denoted by a color) are connected to the same letter. <br>
+Additionally, controller has many settings which, among other things, determine how much current goes to the motor windings. We played around with these settings until we found one where the stepper motor rotated the smartphone smoothly. If these settings are not fine-tuned to the weight of the smartphone the motor rotates the stepper motor can overshoot each time it takes a step.

@@ -35,3 +35,16 @@ Before the server can actually run, you have to press the *connect* button on th
 Afterwards the Android application is completely controlled by the server.
 
 ## Arduino side considerations
+The android smartphone is rotated by a stepper motor which is controlled by an arduino. This arduino send commands to a motor controller board which in turn sends current through a particular winding of the stepper motor.
+A 12V, 1.5A power supply is connected to the motor controller which provides the high currents needed for the stepper motor.
+The wiring of the stepper motor, controller and arduino are shown here.
+
+![](images/wiring.png)
+
+To provide the arduino with power it is connected to a laptop via a USB cable. Since the arduino can receive commands both via WiFi and via this USB cable connecting it to a laptop allows the user to rotate the smartphone mannualy before a measurement procedure is started.
+When first powering the arduino it will continously try to connect to the hotspot defined by the 'ssid' varaible in the PolarGrabber.ino.
+Once a connection is established the arduino tries to connect to the server as defined by the 'server' variable. 
+Afterwards the arduino waits until it receives a command, be it via WiFi or via USB.
+The text file 'commands.txt' contains all integers that can be interpreted by the arduino. Typing '5' and '6', which correspond to 'takeOneStepCLKWise' and 'takeOneStepCounterCLKWise' respectively, into the serial monitor rotates the stepper motor. 
+Once the smartphone is oriented correctly, meaning the bottom microphone is pointing to the speaker, '0' can be send to the arduino to calibarte the current orientation as the origin. 
+After the origin is set the measurement procedure can be started by pressing the *Run Automatic* button of the server.

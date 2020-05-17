@@ -4,7 +4,7 @@ This project consists of four key programs. Note that both the Android and Ardui
 The first program, **SERVER**, runs a Transmission Control Protocol (TCP) server, written in C which controls the flow of the measurement.
 The executable is found under *AudioStorOrientalServer/Release/AudioStorOrientalServer.exe*. When you run this program, the main window will open. Once a device (Android or Arduino) is connected, the message log on the bottom left will show this.
 For example if the Android smartphone connects to the PC using its Android application (discussed below), the following message is seen:
-![](images/mainwindow.png)
+![](images/mainwindow.PNG)
 
 The second program **add name** ...
 

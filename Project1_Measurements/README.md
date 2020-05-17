@@ -51,4 +51,4 @@ After the origin is set the measurement procedure can be started by pressing the
 
 ### A note on the stepper motor controller board 
 The polarity of the wiring does not matter, as long as each pair (denoted by a color) are connected to the same letter. <br>
-Additionally, controller has many settings which, among other things, determine how much current goes to the motor windings. We played around with these settings until we found one where the stepper motor rotated the smartphone smoothly. If these settings are not fine-tuned to the weight of the smartphone the motor rotates the stepper motor can overshoot each time it takes a step.
+Additionally, the controller has many settings which, among other things, determine how much current goes to the motor windings. We played around with these settings until we found one where the stepper motor rotated the smartphone smoothly. If these settings are not fine-tuned to the weight of the smartphone the motor rotates the stepper motor can overshoot each time it takes a step.

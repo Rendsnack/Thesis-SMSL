@@ -1,10 +1,12 @@
 # Project 1: Polar Pattern Measurement
 This project consists of four key programs. Note that both the Android and Arduino device must be connected to the PC using a WiFi hotspot.
 
+## Server side tutorial
 The first program, **SERVER**, runs a Transmission Control Protocol (TCP) server, written in C which controls the flow of the measurement.
 The executable is found under *AudioStorOrientalServer/Release/AudioStorOrientalServer.exe*. When you run this program, the main window will open. Once a device (Android or Arduino) is connected, the message log on the bottom left will show this.
 For example if the Android smartphone connects to the PC using its Android application (discussed below), the following message is seen:
 ![](images/mainwindow.PNG)
+
 You still have to select the correct IP address of the Android and Arduino device. Failing to do so correctly will cause the program to shut down.
 The next step is to select the correct output channel and the corresponding signal. All signal types should be stored in the folder *SERVER/AudioStorOrientalServer/Signals* and have .wav extension. 
 Once the signal is select you can test the audio with the *Test audio* button.
@@ -23,17 +25,13 @@ The process is as follows:
 </ol>
 The number of iterations depends on the specified step size. For a step size of 9° the process will have 40 iterations.
   
+## Android side tutorial
+The application on the Android is a multi-threaded program which runs a TCP client in one thread and a mediarecorder in the second thread. The main thread handles synchronization of the threads and also calculates the rotation of the smartphone.
+The UI is kept simple as seen here.
 
-The second program **add name** ...
+![](images/android.png)
 
-The third program **add name** ...
+Before the server can actually run, you have to press the *connect* button on the Android application to connect with the server program.
+Afterwards the Android application is completely controlled by the server.
 
-The fourth program **add name** ...
-
-## First program tutorial
-
-## Second program tutorial
-
-## Third program tutorial
-
-## fourth program tutorial
+## Arduino side considerations

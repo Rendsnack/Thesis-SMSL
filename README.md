@@ -42,10 +42,10 @@ The ability to localize a sound source with the studied methods does not seem to
 ## The provided projects
 The repository is split up into 4 main projects which follow the structure of the thesis. A detailed description is found in each corresponding project.
 
-The first project **add name** deals with the measurement of the polar pattern of an Android smartphone. This is accomplished using the sinesweep method to calculate impulse responses from certain directions. 
+The first project **Measurements** deals with the measurement of the polar pattern of an Android smartphone. This is accomplished using the sinesweep method to calculate impulse responses from certain directions. 
 
-The second project **add name** analyzes the impulse responses acquired from project **add name**. More specifically the impulse responses are analyzed mainly in the frequency domain.
+The second project **IR examination** analyzes the impulse responses acquired from project **Measurements**. More specifically the impulse responses are analyzed mainly in the frequency domain.
 
-The third project **add name** is a first attempt on the sound localization task with noise as the signal of interest. This project explores different spectral estimation methods to classify the AoA.
+The third project **Noise Model** is a first attempt on the sound localization task with noise as the signal of interest. This project explores different spectral estimation methods to classify the AoA.
 
-The fourth and last project **add name** goes one step further and tries to do the localization task with speech and music as the signal of interest. This project explores the use of cepstral coefficients and their derivatives to train a neural network for classification of the AoA.
+The fourth and last project **Neural Network** goes one step further and tries to do the localization task with speech and music as the signal of interest. This project explores the use of cepstral coefficients and their derivatives to train a neural network for classification of the AoA.

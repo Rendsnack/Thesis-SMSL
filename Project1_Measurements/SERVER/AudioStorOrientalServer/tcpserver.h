@@ -1,44 +1,73 @@
-#ifndef TCPSERVER_H
+﻿#ifndef TCPSERVER_H
 #define TCPSERVER_H
+
+#include <QTcpServer>
 #include <QTcpSocket>
-#include <QtNetwork>
-#include <QDialog>
+#include <memory>
 
 
 
-class TcpServer : public QDialog
+class TcpServer : public QTcpServer
 {
     Q_OBJECT
 public:
-    TcpServer(const QHostAddress &address, const quint16 port);
-    TcpServer(const quint16 port);
-    ~TcpServer();
-    bool startServer();
-    QHostAddress getServerAddress() const;
-    quint16 getServerPort();
-    static std::vector<QHostAddress> getLocalAddresses();
+    TcpServer();
+    void sendMessage(std::string peerAddress, std::string message);
+    void sendControl(std::string peerAddress, char key);
+    std::vector<QTcpSocket* > getSockets() const;
+    long getDataLen();
 
-    int getIndex() const;
 
 signals:
-    void packetReceived(const QHostAddress &peerAddress, const quint16 peerport);
+    /* We define specific keys to communication in order
+     * to differentiate between the two clients (Android, Arduino)
+     * and simple logmessages vs control signals
+     */
 
-private slots:
-    void sessionOpened();
-    // Once filename is created this slot is called to write received data into the file
-    void receiveData();
-    // Receive the size of the String filename (fixed with 1 byte) and afterwards its filename
-    void receiveFileName();
-    void connect();
+    void messageReceived(std::string message);
+    void removeIP(QString peeraddress);
+    void dataReceived(QList<QByteArray> &data);
+    void controlReceived(int control);
+    void connectionReceived(std::string peerAddress);
+    void dataTransmitEnd();
+    void lengthReceived(int dataLen);
+    void stepperRotated();
+
+
+public slots:
+    void onNewConnection();
+    void onSocketStateChanged(QAbstractSocket::SocketState socketState);
+    void onSendControl(std::string controlMessage);
+    void onReadyRead();
+    void updateSocketDeviceType(QString AndroidAddress, QString ArduinoAddress);
+
 
 private:
-    QTcpServer * tcpServer;
-    QTcpSocket * serverSocket;
-    QNetworkSession * networkSession;
+    void handleAndroidData(QList<QByteArray> list);
+    void handleArduinoData(QList<QByteArray> list);
+    std::shared_ptr<QTcpSocket> _ServerSocket;
+    std::vector<QTcpSocket *> _sockets;
+    QString arduinoAddress;
+    QString androidAddress;
+    quint16 port{4242};
 
-    QString foldername = "D:/Master/Thesis/Development/Data";
-    QString filenameAppend;
+    int _dataLen = 0;
+
+    /* TCP Data Packet Structure:
+     * TCP HEADER (no edit)
+     * Each part will be on seperate line
+     * TCP KEY: for communication
+     *      1 : Message
+     *      2 : Data
+     *
+     *      Sender can be identified using QObject * sender and IP address
+     *
+     * TCP DATA SIZE: Length of DATA = length of lines.
+     * TCP DATA: on seperate lines
+     *
+     */
+
+
 };
-
 
 #endif // TCPSERVER_H
